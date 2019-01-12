@@ -53,6 +53,45 @@
             </objects>
             <point key="canvasLocation" x="1744.8" y="132.68365817091455"/>
         </scene>
+        <!--Category View Controller-->
+        <scene sceneID="hce-7B-ru0">
+            <objects>
+                <tableViewController id="w2x-Mi-LnJ" customClass="CategoryViewController" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yO8-05-dq4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryItemCell" id="XAc-xp-HXw">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XAc-xp-HXw" id="iZd-tH-uFB">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="w2x-Mi-LnJ" id="QAS-qq-2Jb"/>
+                            <outlet property="delegate" destination="w2x-Mi-LnJ" id="toX-Nw-n4E"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="hzJ-3J-oZb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yFq-oo-3yV">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="w2x-Mi-LnJ" id="4OW-r4-0Kr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="fa8-PB-eeX" kind="show" identifier="goToItems" id="THt-iX-tf0"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="czD-JR-nDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="846" y="133"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="FjH-P7-gy1">
             <objects>
@@ -68,12 +107,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="fa8-PB-eeX" kind="relationship" relationship="rootViewController" id="EOo-GT-UIu"/>
+                        <segue destination="w2x-Mi-LnJ" kind="relationship" relationship="rootViewController" id="vex-xk-VPl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M61-ze-ZiK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="133"/>
+            <point key="canvasLocation" x="-38" y="133"/>
         </scene>
     </scenes>
 </document>
