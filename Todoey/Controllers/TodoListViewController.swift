@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     var toDoItems: Results<Item>?
     let realm = try! Realm()
@@ -24,7 +24,6 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 
 
@@ -33,19 +32,17 @@ class TodoListViewController: UITableViewController {
     
     //Declare cellForRowAtIndexPath:
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = toDoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
-            
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No items added"
         }
         
-
-        
         return cell
     }
+    
     
     
     //Declare numberOfRowsInSection:
@@ -55,21 +52,9 @@ class TodoListViewController: UITableViewController {
     
     
     //MARK - TableView delegate methods
+    //TODO: - Change this to use the swipe action instead of tap
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let item = toDoItems?[indexPath.row] {
-            do {
-                try realm.write {
-                    item.done = !item.done
-                    //realm.delete(item) //This is how you delete items!
-                }
-            } catch {
-                print ("Error updating: \(error)")
-            }
-        }
-        
-        tableView.reloadData()
-        tableView.deselectRow(at: indexPath, animated: true)
+        tickItem(at: indexPath)
     }
     
     
@@ -113,6 +98,35 @@ class TodoListViewController: UITableViewController {
     func loadItems() {
         toDoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
+    }
+    
+    override func tickItem(at indexPath: IndexPath) {
+        if let item = toDoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done
+                    //realm.delete(item) //This is how you delete items!
+                }
+            } catch {
+                print ("Error updating: \(error)")
+            }
+        }
+        
+        tableView.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func deleteItem(at indexPath: IndexPath) {
+        if let item = toDoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    realm.delete(item) //This is how you delete items!
+                }
+            } catch {
+                print ("Error deleting item: \(error)")
+            }
+        }
+        
     }
 
 }
